@@ -1,0 +1,7 @@
+flask
+flask-cors
+assemblyai
+gunicorn
+python-dotenv
+opencv-python
+numpy
