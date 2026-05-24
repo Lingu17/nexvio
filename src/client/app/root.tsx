@@ -5,12 +5,17 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLocation,
 } from "react-router";
+import { useState } from "react";
 
 import type { Route } from "./+types/root";
 import "./app.css";
 import Navbar from "./components/navbar";
 import Footer from "./components/footer";
+import AppSidebar from "./components/app-sidebar";
+import AppTopbar from "./components/app-topbar";
+import { MockAppProvider } from "./lib/mock-app";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -21,7 +26,7 @@ export const links: Route.LinksFunction = () => [
   },
   {
     rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
+    href: "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap",
   },
 ];
 
@@ -43,15 +48,54 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
+import { ToastProvider } from "./components/toast-provider";
+
 export default function App() {
+  const location = useLocation();
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const appRoutePrefixes = [
+    "/dashboard",
+    "/live-interview",
+    "/analysis",
+    "/resume-analyzer",
+    "/settings",
+    "/reports",
+    "/history",
+    "/notifications",
+    "/billing",
+    "/ai-coach",
+  ];
+  const isAppRoute = appRoutePrefixes.some((prefix) => location.pathname.startsWith(prefix));
+
   return (
-    <div className="flex flex-col min-h-screen">
-      <Navbar />
-      <main className="flex-grow">
-        <Outlet />
-      </main>
-      <Footer />
-    </div>
+    <ToastProvider>
+      <MockAppProvider>
+        {isAppRoute ? (
+          <div className="flex h-screen bg-[#07111f] text-gray-50 overflow-hidden">
+          <AppSidebar
+            collapsed={isSidebarCollapsed}
+            onToggle={() => setIsSidebarCollapsed((current) => !current)}
+          />
+          <div className="flex flex-col flex-1 min-w-0 overflow-hidden">
+            <AppTopbar onMenuToggle={() => setIsSidebarCollapsed((current) => !current)} />
+            <main className="flex-1 overflow-x-hidden overflow-y-auto">
+              <div className="mx-auto max-w-[1440px] px-4 py-6 sm:px-6 lg:px-8">
+                <Outlet />
+              </div>
+            </main>
+          </div>
+        </div>
+      ) : (
+        <div className="flex min-h-screen flex-col">
+          <Navbar />
+          <main className="flex-grow pt-24">
+            <Outlet />
+          </main>
+          <Footer />
+        </div>
+      )}
+      </MockAppProvider>
+    </ToastProvider>
   );
 }
 

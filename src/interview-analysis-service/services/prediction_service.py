@@ -107,6 +107,7 @@ class PredictionService:
 
             # Create DataFrame for prediction
             df = pd.DataFrame([lexical_features_dict])
+            df = df.fillna(0)
 
             # Make prediction
             logger.info("Making prediction...")

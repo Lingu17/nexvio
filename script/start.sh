@@ -33,13 +33,13 @@ fi
 export ASSEMBLYAI_API_KEY
 
 # Start the service
-start_service "$ROOT_DIR/src/interview-analysis-service" "interview-analysis-service" "conda run -n interview-analysis-env gunicorn -w 2 --bind 0.0.0.0:4000 'app:create_app()'"
+start_service "$ROOT_DIR/src/interview-analysis-service" "interview-analysis-service" "conda run -n ace python app.py"
 
 # Start posture-analysis-service
-start_service "$ROOT_DIR/src/posture-analysis-service" "posture-analysis-service" "conda run -n posture-analysis-env gunicorn -w 2 --bind 0.0.0.0:5000 'app:create_app()'"
+start_service "$ROOT_DIR/src/posture-analysis-service" "posture-analysis-service" "conda run -n ace python app.py"
 
 # Start client
-start_service "$ROOT_DIR/src/client" "client" "bun run start"
+start_service "$ROOT_DIR/src/client" "client" "npm run dev"
 
 # Wait a bit for the client to start
 echo "⏳ Waiting for services to initialize..."
@@ -48,13 +48,13 @@ sleep 5
 # Open browser
 echo "🌐 Opening application in browser..."
 if command -v xdg-open &>/dev/null; then
-  xdg-open http://localhost:3000
+  xdg-open http://localhost:5173
 elif command -v open &>/dev/null; then
-  open http://localhost:3000
+  open http://localhost:5173
 elif command -v start &>/dev/null; then
-  start http://localhost:3000
+  start http://localhost:5173
 else
-  echo "ℹ️ Please open http://localhost:3000 in your browser"
+  echo "ℹ️ Please open http://localhost:5173 in your browser"
 fi
 
 echo "🎉 All services are running!"

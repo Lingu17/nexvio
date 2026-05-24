@@ -54,7 +54,7 @@ class EmotionDetector:
 
             # Create a DataFrame to store emotion values
             columns = ["angry", "fear", "happy", "sad", "surprise", "neutral"]
-            df = pd.DataFrame(columns=columns)
+            emotion_rows = []
 
             # Process each frame
             frame_count = 0
@@ -70,19 +70,12 @@ class EmotionDetector:
                     # Detect emotions in the frame
                     emotions = self.detector.detect_emotions(frame)
 
-                    # If faces are found, add emotions to the DataFrame
+                    # If faces are found, add emotions to the list
                     if emotions:
-                        emotion_values = emotions[0]["emotions"]
-                        df = pd.concat(
-                            [df, pd.DataFrame([emotion_values], columns=columns)],
-                            ignore_index=True,
-                        )
+                        emotion_rows.append(emotions[0]["emotions"])
                     else:
                         # If no faces are found, add default values
-                        df = pd.concat(
-                            [df, pd.DataFrame([{col: np.nan for col in columns}])],
-                            ignore_index=True,
-                        )
+                        emotion_rows.append({col: np.nan for col in columns})
 
                     processed_frames += 1
 
@@ -91,8 +84,11 @@ class EmotionDetector:
             # Release video capture
             cap.release()
 
+            # Create DataFrame
+            df = pd.DataFrame(emotion_rows, columns=columns) if emotion_rows else pd.DataFrame(columns=columns)
+
             # Calculate the average emotion values, ignoring NaN values
-            avg_emotions = df.mean(skipna=True).to_dict()
+            avg_emotions = df.mean(skipna=True).fillna(0).to_dict()
 
             logger.info(f"Extracted emotions from {processed_frames} frames")
 

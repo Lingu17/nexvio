@@ -11,37 +11,29 @@ handle_error() {
   exit 1
 }
 
-# Build interview-analysis-service
-echo "🔧 Building interview-analysis-service..."
-cd "$ROOT_DIR/src/interview-analysis-service" || handle_error "Could not navigate to interview-analysis-service directory"
-if conda env create -f environment.yml; then
-  echo "✅ Successfully created conda environment for interview-analysis-service"
+# Build unified environment
+echo "🔧 Setting up clean 'ace' environment manually to avoid OS conflicts..."
+conda create -n ace python=3.10 -y
+if conda install -n ace -c conda-forge ffmpeg ffprobe -y; then
+  echo "✅ Successfully installed ffmpeg and ffprobe in 'ace' environment"
 else
-  handle_error "Failed to create conda environment for interview-analysis-service"
+  handle_error "Failed to install ffmpeg/ffprobe in 'ace' environment"
 fi
-
-# Build posture-analysis-service
-echo "🔧 Building posture-analysis-service..."
-cd "$ROOT_DIR/src/posture-analysis-service" || handle_error "Could not navigate to posture-analysis-service directory"
-if conda env create -f environment.yml; then
-  echo "✅ Successfully created conda environment for posture-analysis-service"
+if conda run -n ace pip install tensorflow==2.13.0 keras==2.13.1 flask fastapi uvicorn mediapipe opencv-python numpy pandas scikit-learn torch jupyter gunicorn assemblyai xgboost librosa spacy praat-parselmouth flask-cors nltk; then
+  echo "✅ Successfully created 'ace' conda environment and installed dependencies"
 else
-  handle_error "Failed to create conda environment for posture-analysis-service"
+  handle_error "Failed to install dependencies in 'ace' environment"
 fi
 
 # Build client
 echo "🔧 Building client..."
 cd "$ROOT_DIR/src/client" || handle_error "Could not navigate to client directory"
-if bun i; then
+echo "🧹 Cleaning previous client dependencies..."
+rm -rf node_modules .vite .vite-temp build
+if npm install; then
   echo "✅ Successfully installed client dependencies"
 else
   handle_error "Failed to install client dependencies"
-fi
-
-if bun run build; then
-  echo "✅ Successfully built client"
-else
-  handle_error "Failed to build client"
 fi
 
 echo "🎉 Build completed successfully! You can proceed with start script."

@@ -1,6 +1,73 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-display: "Space Grotesk", "Manrope", ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+:root {
+  color-scheme: dark;
+  --surface: #07111f;
+  --surface-soft: rgba(255, 255, 255, 0.04);
+  --border-soft: rgba(255, 255, 255, 0.08);
+  --accent-primary: #8b5cf6;
+  --accent-secondary: #06b6d4;
+  --accent-light: #c4b5fd;
+}
+
+body[data-accent="cyan"] {
+  --accent-primary: #06b6d4;
+  --accent-secondary: #3b82f6;
+  --accent-light: #67e8f9;
+}
+
+body[data-accent="emerald"] {
+  --accent-primary: #10b981;
+  --accent-secondary: #14b8a6;
+  --accent-light: #6ee7b7;
+}
+
+body[data-accent="amber"] {
+  --accent-primary: #f59e0b;
+  --accent-secondary: #f97316;
+  --accent-light: #fcd34d;
+}
+
+body[data-accent="violet"] {
+  --accent-primary: #8b5cf6;
+  --accent-secondary: #06b6d4;
+  --accent-light: #c4b5fd;
+}
+
+.theme-gradient-text {
+  background: linear-gradient(to right, var(--accent-light), var(--accent-secondary));
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background:
+    radial-gradient(circle at top, rgba(96, 165, 250, 0.14), transparent 30%),
+    radial-gradient(circle at right, rgba(168, 85, 247, 0.12), transparent 28%),
+    var(--surface);
+  color: #f8fafc;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+}
+
+::selection {
+  background: rgba(139, 92, 246, 0.28);
 }

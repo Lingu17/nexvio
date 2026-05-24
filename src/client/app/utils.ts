@@ -3,17 +3,13 @@
  * @param length The length of the ID (default: 16)
  * @returns A random string ID
  */
-export function generateRandomId(length: number = 16): string {
-  const characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  const timestamp = new Date().getTime().toString(36);
-
-  let result = timestamp.slice(0, 4) + "-";
-
-  for (let i = 0; i < length - 5; i++) {
-    const randomIndex = Math.floor(Math.random() * characters.length);
-    result += characters.charAt(randomIndex);
+export function generateRandomId(): string {
+  if (typeof crypto !== "undefined" && crypto.randomUUID) {
+    return crypto.randomUUID();
   }
-
-  return result;
+  
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    const r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
 }

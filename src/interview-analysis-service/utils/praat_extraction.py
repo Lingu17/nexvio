@@ -251,6 +251,7 @@ class PraatFeatureExtractor:
         try:
             # Convert features to DataFrame
             df = pd.DataFrame([features])
+            df = df.fillna(0)
 
             # Define measures for PCA
             measures = [

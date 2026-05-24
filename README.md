@@ -1,4 +1,4 @@
-# AceInterview - AI Driven Interview Preparation System
+# Nexvio - AI Driven Interview Preparation System
 
 <!-- PROJECT SHIELDS -->
 
@@ -10,20 +10,20 @@
 
 <!-- PROJECT LOGO -->
 <div align="center">
-  <a href="https://github.com/gargujjwal/aceinterview">
-    <img src="./readme-assets/logo.png" alt="Logo" width="120">
+  <a href="#">
+    <img src="./readme-assets/logo.png" alt="Nexvio Logo" width="120">
   </a>
   <h3 align="center">AI-Powered Multimodal Interview Analysis</h3>
   <p align="center">
     Revolutionizing interview preparation through behavioral analytics and AI-driven feedback
     <br />
-    <a href="https://github.com/gargujjwal/aceinterview"><strong>Explore Documentation »</strong></a>
+    <a href="#"><strong>Explore Documentation »</strong></a>
   </p>
 </div>
 
 ## Table of Contents
 
-- [AceInterview - AI Driven Interview Preparation System](#aceinterview---ai-driven-interview-preparation-system)
+- [Nexvio - AI Driven Interview Preparation System](#nexvio---ai-driven-interview-preparation-system)
   - [Table of Contents](#table-of-contents)
   - [About The Project](#about-the-project)
     - [Screenshots](#screenshots)
@@ -45,7 +45,7 @@
 
 ## About The Project
 
-AceInterview is an AI-driven platform that provides comprehensive interview preparation through advanced analysis of verbal and non-verbal communication. Leveraging machine learning, computer vision, and NLP techniques, the system evaluates candidates' performance across multiple dimensions to deliver personalized feedback and actionable insights.
+Nexvio is an AI-driven platform that provides comprehensive interview preparation through advanced analysis of verbal and non-verbal communication. Leveraging machine learning, computer vision, and NLP techniques, the system evaluates candidates' performance across multiple dimensions to deliver personalized feedback and actionable insights.
 
 ### Screenshots
 
@@ -160,8 +160,8 @@ AceInterview is an AI-driven platform that provides comprehensive interview prep
 1. Clone repository:
 
    ```bash
-   git clone https://github.com/gargujjwal/aceinterview.git
-   cd aceinterview
+   git clone https://github.com/LingrajMalipatil/nexvio.git
+   cd nexvio
    ```
 
 2. Validated environment:
@@ -196,31 +196,25 @@ Distributed under the MIT License. See `LICENSE` for details.
 
 ## Contact
 
-**Ujjwal Garg** - [@ujjwalgarg](https://github.com/gargujjwal)
-**Project Advisor**: Prof. Senthil Kumaran U
-**Institution**: Vellore Institute of Technology
+**Lingraj Malipatil** - [lingrajmalipatil1@gmail.com](mailto:lingrajmalipatil1@gmail.com)
 
-Project Link: [https://github.com/gargujjwal/aceinterview](https://github.com/gargujjwal/aceinterview)
+Project Link: [https://github.com/LingrajMalipatil/nexvio](https://github.com/LingrajMalipatil/nexvio)
 
-## Acknowledgements
 
-- [https://github.com/jaspreet3397/Video-Interview-Analysis](https://github.com/jaspreet3397/Video-Interview-Analysis)
-- [https://github.com/PALASH-BAJPAI/HiRe_Automated_Interviewing_tool](https://github.com/PALASH-BAJPAI/HiRe_Automated_Interviewing_tool)
-- [https://github.com/yuvraaj2002/InterviewX/tree/master](https://github.com/yuvraaj2002/InterviewX/tree/master)
-- [https://github.com/malhaar2002/interview-analysis](https://github.com/malhaar2002/interview-analysis)
+
 
 <!-- MARKDOWN LINKS -->
 
-[contributors-shield]: https://img.shields.io/github/contributors/gargujjwal/aceinterview.svg?style=for-the-badge
-[contributors-url]: https://github.com/gargujjwal/aceinterview/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/gargujjwal/aceinterview.svg?style=for-the-badge
-[forks-url]: https://github.com/gargujjwal/aceinterview/network/members
-[stars-shield]: https://img.shields.io/github/stars/gargujjwal/aceinterview.svg?style=for-the-badge
-[stars-url]: https://github.com/gargujjwal/aceinterview/stargazers
-[issues-shield]: https://img.shields.io/github/issues/gargujjwal/aceinterview.svg?style=for-the-badge
-[issues-url]: https://github.com/gargujjwal/aceinterview/issues
-[license-shield]: https://img.shields.io/github/license/gargujjwal/aceinterview.svg?style=for-the-badge
-[license-url]: https://github.com/gargujjwal/aceinterview/blob/master/LICENSE
+[contributors-shield]: https://img.shields.io/github/contributors/LingrajMalipatil/nexvio.svg?style=for-the-badge
+[contributors-url]: https://github.com/LingrajMalipatil/nexvio/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/LingrajMalipatil/nexvio.svg?style=for-the-badge
+[forks-url]: https://github.com/LingrajMalipatil/nexvio/network/members
+[stars-shield]: https://img.shields.io/github/stars/LingrajMalipatil/nexvio.svg?style=for-the-badge
+[stars-url]: https://github.com/LingrajMalipatil/nexvio/stargazers
+[issues-shield]: https://img.shields.io/github/issues/LingrajMalipatil/nexvio.svg?style=for-the-badge
+[issues-url]: https://github.com/LingrajMalipatil/nexvio/issues
+[license-shield]: https://img.shields.io/github/license/LingrajMalipatil/nexvio.svg?style=for-the-badge
+[license-url]: https://github.com/LingrajMalipatil/nexvio/blob/master/LICENSE
 [Python]: https://img.shields.io/badge/Python-3.9+-3776AB?logo=python&logoColor=white
 [Python-url]: https://www.python.org/
 [React.js]: https://img.shields.io/badge/React-18.2-61DAFB?logo=react&logoColor=black
