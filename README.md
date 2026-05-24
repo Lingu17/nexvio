@@ -1,12 +1,49 @@
 # 🚀 Nexvio — AI-Powered Interview Intelligence Platform
 
+<p align="center">
+  <b>Next-Generation AI Interview Preparation & Career Intelligence Platform</b>
+</p>
+
+<p align="center">
+  Real-time AI Interview Simulation • Emotion Detection • Posture Analysis • Resume Intelligence
+</p>
+
 ---
 
-## 🌟 Overview
+# 🌐 Live Demo
 
-Nexvio is a next-generation AI-powered interview preparation and career intelligence platform designed to help candidates improve communication, confidence, posture, and interview performance using real-time AI analysis.
+### 🔗 Live Application
+https://nexvio-snowy.vercel.app/
 
-Nexvio combines AI interview simulation, posture tracking, facial emotion detection, speech intelligence, ATS resume analysis, and personalized feedback into one powerful platform.
+---
+
+# 📸 Screenshots
+
+<img width="1905" height="965" alt="image" src="https://github.com/user-attachments/assets/2a8ed26f-4069-49d5-9d45-b9ba3d8f1dda" />
+
+<img width="1904" height="963" alt="image" src="https://github.com/user-attachments/assets/d20ce168-aa0e-4227-aaf2-4f39bf0dc392" />
+
+<img width="1894" height="967" alt="image" src="https://github.com/user-attachments/assets/b570f881-36be-494c-a20a-ea1d737a2e48" />
+
+<img width="1903" height="974" alt="image" src="https://github.com/user-attachments/assets/bfd54f7a-d63b-4ed9-bfa5-3a7f3463183b" />
+
+<img width="1893" height="883" alt="image" src="https://github.com/user-attachments/assets/75bc1956-3ec3-4572-89ac-79076b36eb17" />
+
+---
+
+# 🌟 Overview
+
+Nexvio is an advanced AI-powered interview preparation and career intelligence platform designed to help candidates improve communication skills, confidence, posture, and interview performance using real-time artificial intelligence.
+
+The platform combines:
+- 🎤 AI Interview Simulation
+- 😊 Emotion & Confidence Detection
+- 🧍 Posture & Body Language Analysis
+- 🎙️ Speech Intelligence
+- 📄 ATS Resume Analysis
+- 📊 AI Analytics Dashboard
+
+Nexvio creates a realistic AI interview environment with live webcam analysis, speech evaluation, personalized feedback, and performance tracking.
 
 ---
 
@@ -17,13 +54,12 @@ Nexvio combines AI interview simulation, posture tracking, facial emotion detect
 ## 🎤 AI Interview Simulation
 
 - Real-time AI interviewer
-- HR + Technical interview support
-- Dynamic question generation
-- Speech interaction
-- AI-generated follow-up questions
+- Technical + HR interview support
+- Dynamic AI-generated questions
 - Personalized interview flow
-- AI mock interview experience
-- Real-time response analysis
+- Speech-based interaction
+- Follow-up question generation
+- Real-time answer analysis
 
 ---
 
@@ -31,21 +67,21 @@ Nexvio combines AI interview simulation, posture tracking, facial emotion detect
 
 - Facial emotion recognition
 - Confidence scoring
+- Stress level analysis
 - Sentiment tracking
-- Stress level detection
 - Engagement monitoring
-- Real-time behavioral insights
+- Behavioral insights
 
 ---
 
-## 🧍 AI Posture & Body Language Analysis
+## 🧍 Posture & Body Language Analysis
 
 - Real-time posture tracking
 - Face alignment detection
-- Eye contact analysis
+- Eye contact monitoring
 - Body movement analysis
-- Interview posture feedback
 - Attention tracking
+- AI posture feedback
 
 ---
 
@@ -53,9 +89,9 @@ Nexvio combines AI interview simulation, posture tracking, facial emotion detect
 
 - Speech clarity analysis
 - Speaking pace detection
-- Communication scoring
 - Tone analysis
-- Confidence tracking
+- Communication scoring
+- Confidence detection
 - AI speech insights
 
 ---
@@ -63,7 +99,7 @@ Nexvio combines AI interview simulation, posture tracking, facial emotion detect
 ## 📄 Resume & ATS Optimization
 
 - Resume upload
-- ATS score analysis
+- ATS compatibility scoring
 - Resume optimization suggestions
 - Skill gap analysis
 - AI career recommendations
@@ -72,21 +108,21 @@ Nexvio combines AI interview simulation, posture tracking, facial emotion detect
 
 ## 📊 Analytics Dashboard
 
-- Interview performance tracking
-- AI-generated feedback reports
 - Performance scorecards
+- AI-generated interview reports
+- Progress tracking
 - Personalized recommendations
-- Progress analytics
+- Interview analytics
 
 ---
 
-## 🔐 Authentication System
+## 🔐 Authentication & Security
 
 - Secure login/signup
 - Supabase Authentication
 - Protected routes
-- User profile management
-- Session handling
+- Session management
+- Secure API communication
 
 ---
 
@@ -121,7 +157,7 @@ Nexvio combines AI interview simulation, posture tracking, facial emotion detect
 - TensorFlow
 - Scikit-learn
 - OpenCV
-- FER (Facial Emotion Recognition)
+- FER
 - MediaPipe
 - Praat-Parselmouth
 - NumPy
@@ -134,8 +170,8 @@ Nexvio combines AI interview simulation, posture tracking, facial emotion detect
 - Vercel
 - Render
 - Docker
-- GitHub
 - Docker Compose
+- GitHub
 
 ---
 
@@ -154,8 +190,8 @@ nexvio/
 │   └── posture-analysis-service/      # AI Posture Detection Service
 │
 ├── docker-compose.yml
-├── README.md
-└── package.json
+├── package.json
+└── README.md
 ```
 
 ---
@@ -190,7 +226,7 @@ nexvio/
 
 ---
 
-## Frontend Deployment (Vercel)
+## Frontend Deployment — Vercel
 
 ### Environment Variables
 
@@ -208,7 +244,7 @@ VITE_WEB3FORMS_ACCESS_KEY=your_web3forms_key
 
 ---
 
-## Backend Deployment (Render)
+## Backend Deployment — Render
 
 ### Interview Analysis Service
 
@@ -230,7 +266,7 @@ src/posture-analysis-service
 
 ---
 
-## Run Full Stack Locally
+## Run Entire Stack
 
 ```bash
 docker compose up --build -d
@@ -320,39 +356,39 @@ VITE_WEB3FORMS_ACCESS_KEY=
 
 - Secure Authentication
 - HTTPS Deployment
-- Environment Variable Protection
 - Protected Routes
-- API Isolation
-- Secure Database Access
+- Secure API Access
+- Environment Variable Protection
+- Session Security
 
 ---
 
-# 📸 Main Modules
+# 📌 Main Modules
 
 ---
 
 ## 🧠 AI Interview Room
 
-- Webcam-based AI interview
-- Live speech analysis
+- Live AI interview environment
+- Webcam analysis
+- Speech intelligence
 - Real-time AI feedback
-- Confidence analysis
 
 ---
 
 ## 📄 Resume Analyzer
 
-- ATS score generation
-- Resume improvement suggestions
-- AI recommendations
+- ATS scoring
+- Resume recommendations
+- Skill analysis
 
 ---
 
 ## 📊 Dashboard Analytics
 
 - Performance tracking
-- AI insights
-- Growth analytics
+- Interview history
+- AI-generated insights
 
 ---
 
@@ -361,13 +397,13 @@ VITE_WEB3FORMS_ACCESS_KEY=
 ---
 
 - AI Resume Builder
-- Live Coding Interviews
 - AI Career Coach
+- Live Coding Interviews
 - AI Recruiter Assistant
-- Company-specific Interview Simulation
+- Multi-language Support
+- AI Avatar Interviewer
 - Advanced NLP Analysis
-- Real-time AI Avatar Interviewer
-- Multi-language Interview Support
+- Company-specific Interview Simulation
 
 ---
 
@@ -380,10 +416,10 @@ Contributions are welcome.
 ## Steps
 
 1. Fork the repository
-2. Create feature branch
-3. Commit changes
-4. Push branch
-5. Create Pull Request
+2. Create a feature branch
+3. Commit your changes
+4. Push the branch
+5. Create a Pull Request
 
 ---
 
@@ -399,13 +435,15 @@ MIT License
 
 ---
 
-### Lingraj Malipatil
+## Lingraj Malipatil
 
 AI Engineer & Full Stack Developer
 
-- AI & Machine Learning
-- SaaS Development
-- Full Stack Engineering
+### Focus Areas
+- Artificial Intelligence
+- Machine Learning
+- SaaS Platforms
+- Full Stack Development
 - Automation Systems
 
 ---
@@ -427,6 +465,6 @@ If you like this project:
 
 ---
 
-Nexvio aims to redefine interview preparation using artificial intelligence by creating a realistic, intelligent, and personalized interview ecosystem for candidates worldwide.
+Nexvio aims to redefine interview preparation using artificial intelligence by building a realistic, intelligent, and personalized interview ecosystem for candidates worldwide.
 
 ---
