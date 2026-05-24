@@ -7,6 +7,8 @@ tmp/
 # React Router
 /.react-router/
 /build/
+/.vercel/
+src/client/.vercel/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
