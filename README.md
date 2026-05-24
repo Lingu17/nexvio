@@ -1,223 +1,432 @@
-# Nexvio - AI Driven Interview Preparation System
+# 🚀 Nexvio — AI-Powered Interview Intelligence Platform
 
-<!-- PROJECT SHIELDS -->
+---
 
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
+## 🌟 Overview
 
-<!-- PROJECT LOGO -->
-<div align="center">
-  <a href="#">
-    <img src="./readme-assets/logo.png" alt="Nexvio Logo" width="120">
-  </a>
-  <h3 align="center">AI-Powered Multimodal Interview Analysis</h3>
-  <p align="center">
-    Revolutionizing interview preparation through behavioral analytics and AI-driven feedback
-    <br />
-    <a href="#"><strong>Explore Documentation »</strong></a>
-  </p>
-</div>
+Nexvio is a next-generation AI-powered interview preparation and career intelligence platform designed to help candidates improve communication, confidence, posture, and interview performance using real-time AI analysis.
 
-## Table of Contents
+Nexvio combines AI interview simulation, posture tracking, facial emotion detection, speech intelligence, ATS resume analysis, and personalized feedback into one powerful platform.
 
-- [Nexvio - AI Driven Interview Preparation System](#nexvio---ai-driven-interview-preparation-system)
-  - [Table of Contents](#table-of-contents)
-  - [About The Project](#about-the-project)
-    - [Screenshots](#screenshots)
-  - [Key Features](#key-features)
-  - [Methodology](#methodology)
-    - [Data Acquisition](#data-acquisition)
-    - [Data Processing \& Attribute Extraction](#data-processing--attribute-extraction)
-    - [Predictive Modeling](#predictive-modeling)
-    - [Feedback Generation](#feedback-generation)
-    - [System Implementation](#system-implementation)
-  - [System Architecture](#system-architecture)
-  - [Installation](#installation)
-    - [Prerequisites](#prerequisites)
-    - [Setup Instructions](#setup-instructions)
-  - [Built With](#built-with)
-  - [License](#license)
-  - [Contact](#contact)
-  - [Acknowledgements](#acknowledgements)
+---
 
-## About The Project
+# ✨ Core Features
 
-Nexvio is an AI-driven platform that provides comprehensive interview preparation through advanced analysis of verbal and non-verbal communication. Leveraging machine learning, computer vision, and NLP techniques, the system evaluates candidates' performance across multiple dimensions to deliver personalized feedback and actionable insights.
+---
 
-### Screenshots
+## 🎤 AI Interview Simulation
 
-![Homepage](./readme-assets/frontend/homepage.png)
-![About Us Page](./readme-assets/frontend/about-us-page.png)
-![Contact Page](./readme-assets/frontend/contact-page.png)
-![Architecture Page](./readme-assets/frontend/arch-page.png)
-![System Health Check Page](./readme-assets/frontend/health-check-page.png)
-![Interview Analysis Result Page](./readme-assets/frontend/interview-analysis.png)
-![Posture Analysis Result Page](./readme-assets/frontend/posture-analysis.png)
+- Real-time AI interviewer
+- HR + Technical interview support
+- Dynamic question generation
+- Speech interaction
+- AI-generated follow-up questions
+- Personalized interview flow
+- AI mock interview experience
+- Real-time response analysis
 
-## Key Features
+---
 
-- **Multimodal Behavioral Analysis**
-  - Real-time facial emotion recognition (7 emotion classes)
-  - Speech pattern analysis with filler word detection
-  - Posture evaluation using 17-body keypoint tracking
-  - Vocal prosody analysis (pitch, jitter, shimmer)
-- **AI-Powered Feedback**
+## 😊 Emotion & Confidence Detection
 
-  - Performance scoring across 5 metrics
-  - Timestamp-based improvement suggestions
-  - Comparative analytics against benchmark data
+- Facial emotion recognition
+- Confidence scoring
+- Sentiment tracking
+- Stress level detection
+- Engagement monitoring
+- Real-time behavioral insights
 
-- **Enterprise-Grade Architecture**
-  - Dockerized microservices
-  - Role-based access control
-  - GDPR-compliant data handling
+---
 
-## Methodology
+## 🧍 AI Posture & Body Language Analysis
 
-### Data Acquisition
+- Real-time posture tracking
+- Face alignment detection
+- Eye contact analysis
+- Body movement analysis
+- Interview posture feedback
+- Attention tracking
 
-- **Multimodal Input Collection**
-  - HD video recording (1080p @ 30fps)
-  - 16-bit audio capture at 48kHz
-  - Demographic-balanced dataset (500+ interviews)
-- **Preprocessing Pipeline**
-  - Temporal alignment of AV streams
-  - Background noise reduction (RNNoise)
-  - Adaptive lighting normalization
+---
 
-### Data Processing & Attribute Extraction
+## 🎙️ Voice & Speech Intelligence
 
-| Component        | Technologies Used       | Key Metrics                          |
-| ---------------- | ----------------------- | ------------------------------------ |
-| Speech Analysis  | AssemblyAI, PRAAT       | WPM, filler frequency, pitch range   |
-| NLP Evaluation   | spaCy, LIWC             | Emotional polarity, analytical depth |
-| Visual Analysis  | MediaPipe, FER-2013 CNN | Eye contact ratio, posture angles    |
-| Vocal Assessment | OpenSMILE, Librosa      | Jitter (<1%), shimmer (<0.5dB)       |
+- Speech clarity analysis
+- Speaking pace detection
+- Communication scoring
+- Tone analysis
+- Confidence tracking
+- AI speech insights
 
-### Predictive Modeling
+---
 
-- **Model Architecture**
-  - XGBoost classifier (v1.5.2)
-  - 82 engineered features
-  - 5-fold cross-validation
-- **Performance Metrics**
-  - Precision: 92.4%
-  - Recall: 89.7%
-  - F1-score: 91.0%
+## 📄 Resume & ATS Optimization
 
-### Feedback Generation
+- Resume upload
+- ATS score analysis
+- Resume optimization suggestions
+- Skill gap analysis
+- AI career recommendations
 
-- **Adaptive Scoring System**
+---
 
-  ```python
-  def calculate_composite_score(metrics):
-      weights = {
-          'verbal': 0.35,
-          'vocal': 0.25,
-          'visual': 0.40
-      }
-      return sum(metrics[dim] * weights[dim] for dim in weights)
+## 📊 Analytics Dashboard
 
-  ```
+- Interview performance tracking
+- AI-generated feedback reports
+- Performance scorecards
+- Personalized recommendations
+- Progress analytics
 
-- **Personalized Recommendations**
-  - Vocabulary enhancement strategies
-  - Posture correction exercises
-  - Anxiety reduction techniques
+---
 
-### System Implementation
+## 🔐 Authentication System
 
-- **Deployment Architecture**
+- Secure login/signup
+- Supabase Authentication
+- Protected routes
+- User profile management
+- Session handling
 
-  - Frontend: React.js
-  - Backend: Flask REST API
-  - AI Services: Python 3.9
+---
 
-- **Performance Benchmarks**
-  - Latency: <2.8s for 5-min interview
-  - Throughput: 25 concurrent sessions
-  - Accuracy: ±4% margin of error
+# 🏗️ Tech Stack
 
-## System Architecture
+---
 
-![System Architecture for Interview Analysis Microservice](./readme-assets/sys-arch_interview-analysis-microserv.jpg)
-![System Architecture for Posture Analysis Microservice](./readme-assets/sys-arch_posture-analysis-microserv.png)
+## Frontend
 
-## Installation
+- React Router v7
+- React
+- TypeScript
+- Vite
+- Tailwind CSS
+- Framer Motion
+- Shadcn UI
 
-### Prerequisites
+---
 
-- Docker 20.10+
-- NVIDIA GPU (CUDA 11.7)
-- 8GB RAM minimum
-- Conda
+## Backend & Database
 
-### Setup Instructions
+- Supabase
+- PostgreSQL
+- Supabase Auth
+- Supabase Storage
 
-1. Clone repository:
+---
 
-   ```bash
-   git clone https://github.com/LingrajMalipatil/nexvio.git
-   cd nexvio
-   ```
+## AI & Machine Learning
 
-2. Validated environment:
+- Python
+- TensorFlow
+- Scikit-learn
+- OpenCV
+- FER (Facial Emotion Recognition)
+- MediaPipe
+- Praat-Parselmouth
+- NumPy
+- Pandas
 
-   ```bash
-    ./script/validate-env.sh
-   ```
+---
 
-3. Build environment:
+## Deployment & DevOps
 
-   ```bash
-    ./script/build.sh
-   ```
+- Vercel
+- Render
+- Docker
+- GitHub
+- Docker Compose
 
-4. Start services:
+---
 
-   ```bash
-    ./script/start.sh
-   ```
+# 📁 Project Structure
 
-5. Access interface at `http://localhost:3000`
+---
 
-## Built With
+```bash
+nexvio/
+│
+├── src/
+│   ├── client/                         # Frontend React Application
+│   │
+│   ├── interview-analysis-service/    # AI Interview Analysis Service
+│   │
+│   └── posture-analysis-service/      # AI Posture Detection Service
+│
+├── docker-compose.yml
+├── README.md
+└── package.json
+```
 
-- [![Python][Python]][Python-url]
-- [![React][React.js]][React-url]
-- [![Docker][Docker]][Docker-url]
+---
 
-## License
+# ⚡ System Architecture
 
-Distributed under the MIT License. See `LICENSE` for details.
+---
 
-## Contact
+```text
+                ┌──────────────────────┐
+                │      Frontend        │
+                │ React + Vite + RRv7  │
+                └──────────┬───────────┘
+                           │
+                           ▼
+                ┌──────────────────────┐
+                │      Supabase        │
+                │ Auth + Database      │
+                └──────────┬───────────┘
+                           │
+          ┌────────────────┴────────────────┐
+          ▼                                 ▼
+┌────────────────────┐          ┌────────────────────┐
+│ Interview Analysis │          │ Posture Analysis   │
+│ Python ML Service  │          │ Python ML Service  │
+└────────────────────┘          └────────────────────┘
+```
 
-**Lingraj Malipatil** - [lingrajmalipatil1@gmail.com](mailto:lingrajmalipatil1@gmail.com)
+---
 
-Project Link: [https://github.com/LingrajMalipatil/nexvio](https://github.com/LingrajMalipatil/nexvio)
+# 🚀 Production Deployment
 
+---
 
+## Frontend Deployment (Vercel)
 
+### Environment Variables
 
-<!-- MARKDOWN LINKS -->
+```env
+VITE_SUPABASE_URL=your_supabase_url
 
-[contributors-shield]: https://img.shields.io/github/contributors/LingrajMalipatil/nexvio.svg?style=for-the-badge
-[contributors-url]: https://github.com/LingrajMalipatil/nexvio/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/LingrajMalipatil/nexvio.svg?style=for-the-badge
-[forks-url]: https://github.com/LingrajMalipatil/nexvio/network/members
-[stars-shield]: https://img.shields.io/github/stars/LingrajMalipatil/nexvio.svg?style=for-the-badge
-[stars-url]: https://github.com/LingrajMalipatil/nexvio/stargazers
-[issues-shield]: https://img.shields.io/github/issues/LingrajMalipatil/nexvio.svg?style=for-the-badge
-[issues-url]: https://github.com/LingrajMalipatil/nexvio/issues
-[license-shield]: https://img.shields.io/github/license/LingrajMalipatil/nexvio.svg?style=for-the-badge
-[license-url]: https://github.com/LingrajMalipatil/nexvio/blob/master/LICENSE
-[Python]: https://img.shields.io/badge/Python-3.9+-3776AB?logo=python&logoColor=white
-[Python-url]: https://www.python.org/
-[React.js]: https://img.shields.io/badge/React-18.2-61DAFB?logo=react&logoColor=black
-[React-url]: https://reactjs.org/
-[Docker]: https://img.shields.io/badge/Docker-20.10+-2496ED?logo=docker&logoColor=white
-[Docker-url]: https://www.docker.com/
+VITE_SUPABASE_PUBLISHABLE_KEY=your_supabase_anon_key
+
+VITE_INTERVIEW_ANALYSIS_MICROSVC_BASE_URL=https://your-interview-service.onrender.com
+
+VITE_POSTURE_ANALYSIS_MICROSVC_BASE_URL=https://your-posture-service.onrender.com
+
+VITE_WEB3FORMS_ACCESS_KEY=your_web3forms_key
+```
+
+---
+
+## Backend Deployment (Render)
+
+### Interview Analysis Service
+
+```bash
+Root Directory:
+src/interview-analysis-service
+```
+
+### Posture Analysis Service
+
+```bash
+Root Directory:
+src/posture-analysis-service
+```
+
+---
+
+# 🐳 Docker Deployment
+
+---
+
+## Run Full Stack Locally
+
+```bash
+docker compose up --build -d
+```
+
+---
+
+# 🛠️ Local Development Setup
+
+---
+
+## 1️⃣ Clone Repository
+
+```bash
+git clone https://github.com/YOUR_USERNAME/nexvio.git
+```
+
+---
+
+## 2️⃣ Navigate to Frontend
+
+```bash
+cd src/client
+```
+
+---
+
+## 3️⃣ Install Dependencies
+
+```bash
+npm install
+```
+
+---
+
+## 4️⃣ Run Frontend
+
+```bash
+npm run dev
+```
+
+---
+
+## 5️⃣ Run Interview Analysis Service
+
+```bash
+cd src/interview-analysis-service
+pip install -r requirements.txt
+python app.py
+```
+
+---
+
+## 6️⃣ Run Posture Analysis Service
+
+```bash
+cd src/posture-analysis-service
+pip install -r requirements.txt
+python app.py
+```
+
+---
+
+# 🌐 Environment Variables
+
+---
+
+## Frontend `.env`
+
+```env
+VITE_SUPABASE_URL=
+
+VITE_SUPABASE_PUBLISHABLE_KEY=
+
+VITE_INTERVIEW_ANALYSIS_MICROSVC_BASE_URL=
+
+VITE_POSTURE_ANALYSIS_MICROSVC_BASE_URL=
+
+VITE_WEB3FORMS_ACCESS_KEY=
+```
+
+---
+
+# 🔒 Security Features
+
+---
+
+- Secure Authentication
+- HTTPS Deployment
+- Environment Variable Protection
+- Protected Routes
+- API Isolation
+- Secure Database Access
+
+---
+
+# 📸 Main Modules
+
+---
+
+## 🧠 AI Interview Room
+
+- Webcam-based AI interview
+- Live speech analysis
+- Real-time AI feedback
+- Confidence analysis
+
+---
+
+## 📄 Resume Analyzer
+
+- ATS score generation
+- Resume improvement suggestions
+- AI recommendations
+
+---
+
+## 📊 Dashboard Analytics
+
+- Performance tracking
+- AI insights
+- Growth analytics
+
+---
+
+# 🎯 Future Roadmap
+
+---
+
+- AI Resume Builder
+- Live Coding Interviews
+- AI Career Coach
+- AI Recruiter Assistant
+- Company-specific Interview Simulation
+- Advanced NLP Analysis
+- Real-time AI Avatar Interviewer
+- Multi-language Interview Support
+
+---
+
+# 🤝 Contributing
+
+---
+
+Contributions are welcome.
+
+## Steps
+
+1. Fork the repository
+2. Create feature branch
+3. Commit changes
+4. Push branch
+5. Create Pull Request
+
+---
+
+# 📜 License
+
+---
+
+MIT License
+
+---
+
+# 👨‍💻 Author
+
+---
+
+### Lingraj Malipatil
+
+AI Engineer & Full Stack Developer
+
+- AI & Machine Learning
+- SaaS Development
+- Full Stack Engineering
+- Automation Systems
+
+---
+
+# ⭐ Support
+
+---
+
+If you like this project:
+
+- ⭐ Star the repository
+- 🍴 Fork the project
+- 🚀 Share with developers
+- 💡 Contribute improvements
+
+---
+
+# 💡 Vision
+
+---
+
+Nexvio aims to redefine interview preparation using artificial intelligence by creating a realistic, intelligent, and personalized interview ecosystem for candidates worldwide.
+
+---
