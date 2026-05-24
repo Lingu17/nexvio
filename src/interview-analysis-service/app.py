@@ -4,6 +4,7 @@ import os
 from api.routes import interview_api
 from config import Config
 from flask import Flask
+from flask_cors import CORS
 from utils.nltk_setup import ensure_nltk_resources
 
 
@@ -19,6 +20,7 @@ def create_app(config_class=Config):
     """
     # Create Flask app
     app = Flask(__name__)
+    CORS(app)
 
     # Load configuration
     app.config.from_object(config_class)

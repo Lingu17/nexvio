@@ -3,6 +3,7 @@ import os
 from api.routes import posture_bp
 from config import get_config
 from flask import Flask
+from flask_cors import CORS
 
 
 def create_app(config_obj=None):
@@ -17,6 +18,7 @@ def create_app(config_obj=None):
     """
     # Create Flask app
     app = Flask(__name__)
+    CORS(app)
 
     # Load configuration
     if config_obj is None:
