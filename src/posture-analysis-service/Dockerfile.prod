@@ -23,4 +23,4 @@ ENV PORT=5000
 EXPOSE 5000
 
 # Run the application
-CMD ["conda", "run", "--no-capture-output", "-n", "posture-analysis-env", "gunicorn", "--bind", "0.0.0.0:5000", "app:create_app()"]
+CMD gunicorn --bind 0.0.0.0:$PORT "app:create_app()"
