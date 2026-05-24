@@ -2,6 +2,13 @@ FROM continuumio/miniconda3:25.1.1-2
 
 WORKDIR /app
 
+# Install system dependencies for ML & OpenCV (OpenMP, OpenGL, GLib)
+RUN apt-get update && apt-get install -y \
+    libgomp1 \
+    libgl1-mesa-glx \
+    libglib2.0-0 \
+    && rm -rf /var/lib/apt/lists/*
+
 # Copy environment.yml file
 COPY environment.yml .
 
