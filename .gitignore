@@ -289,3 +289,6 @@ pnpm-lock.yaml
 yarn.lock
 package-lock.json
 bun.lockb
+
+# Whitelist frontend app lib directory (ignored by global lib/ rule)
+!src/client/app/lib/
