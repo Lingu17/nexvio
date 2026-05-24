@@ -30,4 +30,4 @@ ENV PORT=4000
 EXPOSE 4000
 
 # Run the application
-CMD gunicorn --bind 0.0.0.0:$PORT "app:create_app()"
+CMD conda run --no-capture-output -n interview-analysis-env gunicorn --bind 0.0.0.0:$PORT "app:create_app()"
