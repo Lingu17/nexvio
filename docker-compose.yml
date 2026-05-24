@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  # Nexvio React Router v7 Frontend
+  client:
+    build:
+      context: ./src/client
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    restart: always
+    depends_on:
+      - interview-analysis
+      - posture-analysis
+
+  # Interview Analysis Python Microservice
+  interview-analysis:
+    build:
+      context: ./src/interview-analysis-service
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    restart: always
+
+  # Posture Analysis Python Microservice
+  posture-analysis:
+    build:
+      context: ./src/posture-analysis-service
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    restart: always

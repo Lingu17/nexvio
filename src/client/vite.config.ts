@@ -8,6 +8,9 @@ export default defineConfig({
   resolve: {
     dedupe: ["react", "react-dom", "react-router"],
   },
+  optimizeDeps: {
+    include: ["react", "react-dom", "react-router"],
+  },
   server: {
     proxy: {
       "/api/posture": {
