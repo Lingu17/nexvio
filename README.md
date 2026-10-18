@@ -1,470 +1,215 @@
-# 🚀 Nexvio — AI-Powered Interview Intelligence Platform
-
 <p align="center">
-  <b>Next-Generation AI Interview Preparation & Career Intelligence Platform</b>
+  <img src="docs/assets/readme-hero.svg" alt="Nexvio — Practice the interview. Measure the delivery. Record, extract, analyze, improve." width="1200" />
 </p>
 
 <p align="center">
-  Real-time AI Interview Simulation • Emotion Detection • Posture Analysis • Resume Intelligence
+  <strong>AI interview practice with measurable feedback.</strong><br />
+  Record a mock interview and get feedback on your speech, expressions and posture, not just your words.
+</p>
+
+<p align="center">
+  <a href="https://nexvio-snowy.vercel.app/"><img src="https://img.shields.io/badge/Live%20demo-Open%20Nexvio-ec4899?style=for-the-badge" alt="Open the live Nexvio application" /></a>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/React%20Router-7-CA4245?style=flat-square" alt="React Router 7" />
+  <img src="https://img.shields.io/badge/TypeScript-Vite-3178C6?style=flat-square" alt="TypeScript and Vite" />
+  <img src="https://img.shields.io/badge/Supabase-Auth%20%2B%20Postgres-3ECF8E?style=flat-square" alt="Supabase" />
+  <img src="https://img.shields.io/badge/Flask-ML%20microservices-000000?style=flat-square" alt="Flask microservices" />
+  <img src="https://img.shields.io/badge/ML-scikit--learn%20%C2%B7%20FER%20%C2%B7%20MediaPipe-F7931E?style=flat-square" alt="scikit-learn, FER and MediaPipe" />
+  <img src="https://img.shields.io/badge/License-MIT-16a34a?style=flat-square" alt="MIT License" />
+</p>
+
+<p align="center">
+  <a href="#the-product">Product</a> ·
+  <a href="#engineering-decisions">Engineering</a> ·
+  <a href="#architecture">Architecture</a> ·
+  <a href="#screenshots">Screenshots</a> ·
+  <a href="#run-locally">Run locally</a> ·
+  <a href="#creators">Creators</a>
 </p>
 
 ---
 
-# 🌐 Live Demo
+## The product
 
-### 🔗 Live Application
-https://nexvio-snowy.vercel.app/
+Most interview practice tools grade *what* you said. Interviewers also notice *how* you said it: pauses, filler words, energy, eye line and posture.
 
----
+**Nexvio turns a recorded mock interview into concrete delivery feedback.** One service transcribes the answer and combines lexical, prosodic and facial-emotion features into five delivery labels. A second service tracks body landmarks frame by frame and explains what the joint angles say about posture. The web app wraps both in a practice workflow with reports and history.
 
-# 📸 Screenshots
+| Capability | What you can do |
+| :--- | :--- |
+| **Interview analysis** | Upload or record an answer. The video is transcribed with AssemblyAI, and lexical (NLTK), prosodic (Praat-Parselmouth) and facial-emotion (FER) features feed a scikit-learn model. |
+| **Delivery labels** | Get predictions for **Excited**, **Paused**, **EngagingTone**, **Calm** and **NoFillers**, each with an interpretation and improvement tips. |
+| **Posture analysis** | MediaPipe Pose landmarks become shoulder, elbow and wrist angles; the interpreter flags uneven shoulders or closed-off arms with plain-language tips. |
+| **Live interview room** | In-browser webcam session using `face-api.js` and MediaPipe Tasks Vision. |
+| **Resume analyzer (prototype)** | A PDF/DOCX upload flow that currently shows sample ATS-style results; it is not yet connected to a model. |
+| **Dashboard & reports** | History, Recharts dashboards and report pages. Parts of these views still use sample data. |
+| **Accounts** | Supabase authentication with protected routes and session handling. |
 
-<img width="1905" height="965" alt="image" src="https://github.com/user-attachments/assets/2a8ed26f-4069-49d5-9d45-b9ba3d8f1dda" />
+### A workflow you can follow
 
-<img width="1904" height="963" alt="image" src="https://github.com/user-attachments/assets/d20ce168-aa0e-4227-aaf2-4f39bf0dc392" />
+**Record → transcribe → extract features → predict → interpret → review the report**
 
-<img width="1894" height="967" alt="image" src="https://github.com/user-attachments/assets/b570f881-36be-494c-a20a-ea1d737a2e48" />
+## Engineering decisions
 
-<img width="1903" height="974" alt="image" src="https://github.com/user-attachments/assets/bfd54f7a-d63b-4ed9-bfa5-3a7f3463183b" />
+| Engineering problem | Implementation | Inspect the code |
+| :--- | :--- | :--- |
+| Delivery is multi-modal | Transcript, prosody and facial emotions are extracted separately, merged into one feature row and scored by a single multi-output model. | [`prediction_service.py`](src/interview-analysis-service/services/prediction_service.py) |
+| Video analysis is too slow for a request/response cycle | Both services accept a job, return a task ID immediately and process it on a background worker queue; the client polls `/task/<id>`. | [Interview queue](src/interview-analysis-service/task_queue.py), [posture queue](src/posture-analysis-service/task_queue.py) |
+| Raw angles mean nothing to a candidate | Average joint angles are turned into inferences and tips against explicit thresholds (for example, a shoulder tilt of 16° or more). | [Posture interpreter](src/posture-analysis-service/services/result_interpreter.py), [pose detector](src/posture-analysis-service/core/pose_detector.py) |
+| Audio extraction fails differently on every machine | Audio is pulled from the video with ffmpeg, falling back to MoviePy when ffmpeg is unavailable. | [`speech_to_text.py`](src/interview-analysis-service/utils/speech_to_text.py) |
+| Heavy ML dependencies should not slow the web app | The React app and each ML service deploy independently (Vercel and Render), with Docker images for each. | [`docker-compose.yml`](docker-compose.yml), [service Dockerfiles](src/interview-analysis-service/Dockerfile.prod) |
 
-<img width="1893" height="883" alt="image" src="https://github.com/user-attachments/assets/75bc1956-3ec3-4572-89ac-79076b36eb17" />
+The trained models and PCA transform ship in [`src/interview-analysis-service/models`](src/interview-analysis-service/models); the notebooks that produced them are in each service's `notebook/` folder.
 
----
+## Architecture
 
-# 🌟 Overview
+```mermaid
+flowchart LR
+    UI[React Router 7 app<br/>Vercel] --> AUTH[(Supabase<br/>Auth + Postgres)]
+    UI -->|video| IA[Interview analysis<br/>Flask service]
+    UI -->|video| PA[Posture analysis<br/>Flask service]
+    IA --> STT[AssemblyAI transcript]
+    IA --> FEAT[Lexical + Praat prosody + FER emotions]
+    FEAT --> MODEL[scikit-learn model<br/>5 delivery labels]
+    PA --> POSE[MediaPipe Pose<br/>joint angles]
+    MODEL --> UI
+    POSE --> UI
+```
 
-Nexvio is an advanced AI-powered interview preparation and career intelligence platform designed to help candidates improve communication skills, confidence, posture, and interview performance using real-time artificial intelligence.
+<p align="center">
+  <img src="readme-assets/sys-arch_interview-analysis-microserv.jpg" alt="Interview analysis microservice architecture" width="49%" />
+  <img src="readme-assets/sys-arch_posture-analysis-microserv.png" alt="Posture analysis microservice architecture" width="49%" />
+</p>
 
-The platform combines:
-- 🎤 AI Interview Simulation
-- 😊 Emotion & Confidence Detection
-- 🧍 Posture & Body Language Analysis
-- 🎙️ Speech Intelligence
-- 📄 ATS Resume Analysis
-- 📊 AI Analytics Dashboard
+| Layer | Technology |
+| :--- | :--- |
+| Frontend | React Router 7, React, TypeScript, Vite, Tailwind CSS, Framer Motion, Recharts |
+| In-browser vision | `face-api.js`, `@mediapipe/tasks-vision` |
+| Auth & data | Supabase Auth and PostgreSQL ([`supabase/schema.sql`](supabase/schema.sql)) |
+| Interview service | Flask, AssemblyAI, NLTK, Praat-Parselmouth, FER, OpenCV, scikit-learn |
+| Posture service | Flask, MediaPipe Pose, OpenCV |
+| Deployment | Vercel (web), Render (services), Docker and Docker Compose |
 
-Nexvio creates a realistic AI interview environment with live webcam analysis, speech evaluation, personalized feedback, and performance tracking.
+## Screenshots
 
----
+<img width="1905" height="965" alt="Nexvio screenshot 1" src="https://github.com/user-attachments/assets/2a8ed26f-4069-49d5-9d45-b9ba3d8f1dda" />
+<img width="1904" height="963" alt="Nexvio screenshot 2" src="https://github.com/user-attachments/assets/d20ce168-aa0e-4227-aaf2-4f39bf0dc392" />
+<img width="1894" height="967" alt="Nexvio screenshot 3" src="https://github.com/user-attachments/assets/b570f881-36be-494c-a20a-ea1d737a2e48" />
+<img width="1903" height="974" alt="Nexvio screenshot 4" src="https://github.com/user-attachments/assets/bfd54f7a-d63b-4ed9-bfa5-3a7f3463183b" />
+<img width="1893" height="883" alt="Nexvio screenshot 5" src="https://github.com/user-attachments/assets/75bc1956-3ec3-4572-89ac-79076b36eb17" />
 
-# ✨ Core Features
+<details>
+<summary><strong>Scope and known limitations</strong></summary>
 
----
+- The delivery model predicts five labels from features of a single recorded answer; it is practice feedback, not a hiring assessment.
+- Interview analysis needs an AssemblyAI API key; without it, transcription and the lexical/prosodic features are unavailable.
+- Both services keep their job queues in process memory, so pending jobs are lost on restart.
+- Free hosting can cold start; the first analysis after a pause takes longer.
+- The resume analyzer and some dashboard/report views use sample data until they are wired to real services.
+- There is no automated test suite in the repository yet.
 
-## 🎤 AI Interview Simulation
+</details>
 
-- Real-time AI interviewer
-- Technical + HR interview support
-- Dynamic AI-generated questions
-- Personalized interview flow
-- Speech-based interaction
-- Follow-up question generation
-- Real-time answer analysis
+## Run locally
 
----
-
-## 😊 Emotion & Confidence Detection
-
-- Facial emotion recognition
-- Confidence scoring
-- Stress level analysis
-- Sentiment tracking
-- Engagement monitoring
-- Behavioral insights
-
----
-
-## 🧍 Posture & Body Language Analysis
-
-- Real-time posture tracking
-- Face alignment detection
-- Eye contact monitoring
-- Body movement analysis
-- Attention tracking
-- AI posture feedback
-
----
-
-## 🎙️ Voice & Speech Intelligence
-
-- Speech clarity analysis
-- Speaking pace detection
-- Tone analysis
-- Communication scoring
-- Confidence detection
-- AI speech insights
-
----
-
-## 📄 Resume & ATS Optimization
-
-- Resume upload
-- ATS compatibility scoring
-- Resume optimization suggestions
-- Skill gap analysis
-- AI career recommendations
-
----
-
-## 📊 Analytics Dashboard
-
-- Performance scorecards
-- AI-generated interview reports
-- Progress tracking
-- Personalized recommendations
-- Interview analytics
-
----
-
-## 🔐 Authentication & Security
-
-- Secure login/signup
-- Supabase Authentication
-- Protected routes
-- Session management
-- Secure API communication
-
----
-
-# 🏗️ Tech Stack
-
----
-
-## Frontend
-
-- React Router v7
-- React
-- TypeScript
-- Vite
-- Tailwind CSS
-- Framer Motion
-- Shadcn UI
-
----
-
-## Backend & Database
-
-- Supabase
-- PostgreSQL
-- Supabase Auth
-- Supabase Storage
-
----
-
-## AI & Machine Learning
-
-- Python
-- TensorFlow
-- Scikit-learn
-- OpenCV
-- FER
-- MediaPipe
-- Praat-Parselmouth
-- NumPy
-- Pandas
-
----
-
-## Deployment & DevOps
-
-- Vercel
-- Render
-- Docker
-- Docker Compose
-- GitHub
-
----
-
-# 📁 Project Structure
-
----
+### Option 1: Docker Compose (whole stack)
 
 ```bash
-nexvio/
-│
-├── src/
-│   ├── client/                         # Frontend React Application
-│   │
-│   ├── interview-analysis-service/    # AI Interview Analysis Service
-│   │
-│   └── posture-analysis-service/      # AI Posture Detection Service
-│
-├── docker-compose.yml
-├── package.json
-└── README.md
-```
-
----
-
-# ⚡ System Architecture
-
----
-
-```text
-                ┌──────────────────────┐
-                │      Frontend        │
-                │ React + Vite + RRv7  │
-                └──────────┬───────────┘
-                           │
-                           ▼
-                ┌──────────────────────┐
-                │      Supabase        │
-                │ Auth + Database      │
-                └──────────┬───────────┘
-                           │
-          ┌────────────────┴────────────────┐
-          ▼                                 ▼
-┌────────────────────┐          ┌────────────────────┐
-│ Interview Analysis │          │ Posture Analysis   │
-│ Python ML Service  │          │ Python ML Service  │
-└────────────────────┘          └────────────────────┘
-```
-
----
-
-# 🚀 Production Deployment
-
----
-
-## Frontend Deployment — Vercel
-
-### Environment Variables
-
-```env
-VITE_SUPABASE_URL=your_supabase_url
-
-VITE_SUPABASE_PUBLISHABLE_KEY=your_supabase_anon_key
-
-VITE_INTERVIEW_ANALYSIS_MICROSVC_BASE_URL=https://your-interview-service.onrender.com
-
-VITE_POSTURE_ANALYSIS_MICROSVC_BASE_URL=https://your-posture-service.onrender.com
-
-VITE_WEB3FORMS_ACCESS_KEY=your_web3forms_key
-```
-
----
-
-## Backend Deployment — Render
-
-### Interview Analysis Service
-
-```bash
-Root Directory:
-src/interview-analysis-service
-```
-
-### Posture Analysis Service
-
-```bash
-Root Directory:
-src/posture-analysis-service
-```
-
----
-
-# 🐳 Docker Deployment
-
----
-
-## Run Entire Stack
-
-```bash
+git clone https://github.com/Lingu17/nexvio.git
+cd nexvio
 docker compose up --build -d
 ```
 
----
+| Service | Port |
+| :--- | :--- |
+| Web app | [localhost:3000](http://localhost:3000) |
+| Interview analysis | [localhost:4000](http://localhost:4000) |
+| Posture analysis | [localhost:5000](http://localhost:5000) |
 
-# 🛠️ Local Development Setup
+Interview analysis needs `ASSEMBLYAI_API_KEY`. Add it under the `interview-analysis` service's `environment:` in `docker-compose.yml` (keep the real value out of Git), and set the client's `VITE_*` service URLs to these ports.
 
----
+### Option 2: Run each part
 
-## 1️⃣ Clone Repository
-
-```bash
-git clone https://github.com/YOUR_USERNAME/nexvio.git
-```
-
----
-
-## 2️⃣ Navigate to Frontend
-
-```bash
-cd src/client
-```
-
----
-
-## 3️⃣ Install Dependencies
+**Web app** (from `src/client`):
 
 ```bash
 npm install
-```
-
----
-
-## 4️⃣ Run Frontend
-
-```bash
 npm run dev
 ```
 
----
-
-## 5️⃣ Run Interview Analysis Service
-
-```bash
-cd src/interview-analysis-service
-pip install -r requirements.txt
-python app.py
-```
-
----
-
-## 6️⃣ Run Posture Analysis Service
-
-```bash
-cd src/posture-analysis-service
-pip install -r requirements.txt
-python app.py
-```
-
----
-
-# 🌐 Environment Variables
-
----
-
-## Frontend `.env`
+Create `src/client/.env` from [`.env.example`](src/client/.env.example) and point it at your services:
 
 ```env
 VITE_SUPABASE_URL=
-
 VITE_SUPABASE_PUBLISHABLE_KEY=
-
-VITE_INTERVIEW_ANALYSIS_MICROSVC_BASE_URL=
-
-VITE_POSTURE_ANALYSIS_MICROSVC_BASE_URL=
-
+VITE_INTERVIEW_ANALYSIS_MICROSVC_BASE_URL=http://localhost:4000
+VITE_POSTURE_ANALYSIS_MICROSVC_BASE_URL=http://localhost:5000
 VITE_WEB3FORMS_ACCESS_KEY=
 ```
 
----
+**ML services** use Conda environments (Python 3.9), defined in each service's `environment.yml`:
 
-# 🔒 Security Features
+```bash
+cd src/interview-analysis-service
+conda env create -f environment.yml
+conda activate interview-analysis-env
+export ASSEMBLYAI_API_KEY=your_key   # PowerShell: $env:ASSEMBLYAI_API_KEY = "your_key"
+python app.py                        # port 4000 (or $PORT)
+```
 
----
+```bash
+cd src/posture-analysis-service
+conda env create -f environment.yml
+conda activate posture-analysis-env
+python app.py                        # port 5000 (or $PORT)
+```
 
-- Secure Authentication
-- HTTPS Deployment
-- Protected Routes
-- Secure API Access
-- Environment Variable Protection
-- Session Security
+[`script/start.sh`](script/start.sh) starts all three together on macOS/Linux, and [`script/validate-env.sh`](script/validate-env.sh) checks the required variables.
 
----
+### Production deployment
 
-# 📌 Main Modules
+- **Web app → Vercel:** set the `VITE_*` variables above, with the service URLs pointing at your deployed services.
+- **Services → Render:** create one web service per folder (`src/interview-analysis-service`, `src/posture-analysis-service`) using its `Dockerfile.prod`, and set `ASSEMBLYAI_API_KEY` on the interview service.
 
----
+### Service API
 
-## 🧠 AI Interview Room
+| Service | Routes |
+| :--- | :--- |
+| Interview analysis | `POST /api/v1/interview/analyze`, `GET /api/v1/interview/task/<task_id>`, `GET /api/v1/interview/tips/<label>`, `GET /api/v1/interview/health` |
+| Posture analysis | `POST /api/posture/analyze`, `GET /api/posture/task/<task_id>`, `GET /api/posture/health` |
 
-- Live AI interview environment
-- Webcam analysis
-- Speech intelligence
-- Real-time AI feedback
+## Project map
 
----
+```text
+nexvio/
+├── src/
+│   ├── client/                          React Router 7 web app (routes, components, hooks)
+│   ├── interview-analysis-service/
+│   │   ├── api/routes.py                Analyze, task status, tips, health
+│   │   ├── services/                    Prediction pipeline and result interpreter
+│   │   ├── utils/                       Speech-to-text, Praat, lexical and emotion features
+│   │   ├── models/                      Trained model and PCA files
+│   │   └── notebook/                    Model training notebooks
+│   └── posture-analysis-service/
+│       ├── core/                        MediaPipe pose detector and video processor
+│       ├── services/                    Posture analysis and interpretation
+│       └── notebook/                    Posture analysis notebook
+├── supabase/schema.sql                  Database schema
+├── script/                              Build, start and env validation scripts
+├── readme-assets/                       Architecture diagrams and logo
+└── docker-compose.yml                   Full local stack
+```
 
-## 📄 Resume Analyzer
+## Creators
 
-- ATS scoring
-- Resume recommendations
-- Skill analysis
+**Lingraj Malipatil** · [GitHub @Lingu17](https://github.com/Lingu17) · [LinkedIn](https://www.linkedin.com/in/lingraj-malipatil-a2735a241/)
 
----
+Built together with **Ujjwal Garg**, who started the project and wrote the original interview-analysis and posture-analysis microservices and their job queues.
 
-## 📊 Dashboard Analytics
-
-- Performance tracking
-- Interview history
-- AI-generated insights
-
----
-
-# 🎯 Future Roadmap
-
----
-
-- AI Resume Builder
-- AI Career Coach
-- Live Coding Interviews
-- AI Recruiter Assistant
-- Multi-language Support
-- AI Avatar Interviewer
-- Advanced NLP Analysis
-- Company-specific Interview Simulation
-
----
-
-# 🤝 Contributing
-
----
-
-Contributions are welcome.
-
-## Steps
-
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push the branch
-5. Create a Pull Request
+Released under the [MIT License](LICENSE.txt).
 
 ---
 
-# 📜 License
-
----
-
-MIT License
-
----
-
-# 👨‍💻 Author
-
----
-
-## Lingraj Malipatil
-
-AI Engineer & Full Stack Developer
-
-### Focus Areas
-- Artificial Intelligence
-- Machine Learning
-- SaaS Platforms
-- Full Stack Development
-- Automation Systems
-
----
-
-# ⭐ Support
-
----
-
-If you like this project:
-
-- ⭐ Star the repository
-- 🍴 Fork the project
-- 🚀 Share with developers
-- 💡 Contribute improvements
-
----
-
-# 💡 Vision
-
----
-
-Nexvio aims to redefine interview preparation using artificial intelligence by building a realistic, intelligent, and personalized interview ecosystem for candidates worldwide.
-
----
+<p align="center"><strong>Nexvio</strong><br />Practice the interview. Measure the delivery.</p>
